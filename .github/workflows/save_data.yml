@@ -1,4 +1,4 @@
-ame: Extract Emails
+name: Extract Emails
 
 on:
   schedule:
