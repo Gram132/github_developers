@@ -23,6 +23,7 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run script
-      run: python notifyme.py
+      run: python scrap_gethub.py
       env:
         MONGO_URI: ${{ secrets.MONGO_URI }}
+        GetHub_Token: ${{secrets.GetHub_Token}}
