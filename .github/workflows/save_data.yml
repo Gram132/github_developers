@@ -25,4 +25,4 @@ jobs:
       run: python scrap_gethub.py
       env:
         MONGO_URL: ${{ secrets.MONGO_URI }}
-        GetHub_Token: ${{secrets.GETHUB_TOKEN}}
+        GETHUB_TOKEN: ${{ secrets.GETHUB_TOKEN }}

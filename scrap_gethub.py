@@ -3,7 +3,7 @@ import requests
 import time
 from pymongo import MongoClient
 
-gitHub_token = os.getenv('GetHub_Token')
+gitHub_token = os.getenv('GETHUB_TOKEN')
 mongodb_url = os.getenv('MONGO_URL')
 
 TOKEN = gitHub_token
@@ -119,4 +119,4 @@ def save_data(data):
     except Exception as e:
         print(str(e))
 
-save_data(devs)
+#save_data(devs)
