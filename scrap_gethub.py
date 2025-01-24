@@ -1,12 +1,16 @@
+import os
 import requests
 import time
 from pymongo import MongoClient
 
-TOKEN = "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"
+gitHub_token = os.getenv('GETHUB_TOKEN')
+mongodb_url = os.getenv('MONGO_URI')
+
+TOKEN = gitHub_token
 HEADERS = {"Authorization": f"token {TOKEN}"}
 BASE_URL = "https://api.github.com/search/users"
 # MongoDB Connection
-client = MongoClient("mongodb+srv://abdellahgram01:AGpCGP74AuhrEaV2@cluster0.q89tc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+client = MongoClient(mongodb_url)
 db = client["getHub_email"]
 collection = db["gethub_developers"]
 
