@@ -3,8 +3,8 @@ import requests
 import time
 from pymongo import MongoClient
 
-gitHub_token = os.getenv('GETHUB_TOKEN')
-mongodb_url = os.getenv('MONGO_URI')
+gitHub_token = os.getenv('GetHub_Token')
+mongodb_url = os.getenv('MONGO_URL')
 
 TOKEN = gitHub_token
 HEADERS = {"Authorization": f"token {TOKEN}"}
