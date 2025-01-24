@@ -84,7 +84,7 @@ def extract_devs(devs):
 
 # Fetch users for each year
 years = []
-for i in range(2025,2026): years.append(i)
+for i in range(2008,2026): years.append(i)
 location = "Morocco"
 results_by_year = {}
 sleep_time = 0
@@ -119,4 +119,4 @@ def save_data(data):
     except Exception as e:
         print(str(e))
 
-#save_data(devs)
+save_data(devs)
