@@ -84,7 +84,7 @@ def extract_devs(devs , locat):
 
 # Fetch users for each year
 years = []
-for i in range(2008,2010): years.append(i)
+for i in range(2008,2026): years.append(i)
 location = "Morocco"
 results_by_year = {}
 sleep_time = 0
