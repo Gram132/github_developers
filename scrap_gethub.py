@@ -108,7 +108,7 @@ for year in years:
 for year, users in results_by_year.items():
     print(f"Year: {year}, Users Found: {len(users)}")
 
-devs = extract_devs(developers)
+devs = extract_devs(developers , "Morocco")
 
 
 def save_data(data):
