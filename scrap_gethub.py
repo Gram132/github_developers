@@ -113,9 +113,10 @@ devs = extract_devs(developers , "Morocco")
 
 def save_data(data):
     try:
-        result = collection.insert_one(data[0])
-        return {"message": "Data saved", "id": str(result.inserted_id)}
+        result = collection.insert_many(data)
+        return {"message": "Data saved", "ids": [str(_id) for _id in result.inserted_ids]}
     except Exception as e:
-        print(str(e))
+        print(f"Error saving data: {str(e)}")
+        return {"error": str(e)}
 
 save_data(devs)
