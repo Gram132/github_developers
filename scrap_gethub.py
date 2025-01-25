@@ -51,40 +51,40 @@ def fetch_commits(owner, repo):
         ]
         return [email for email in emails if "noreply" not in email]
     else:
-        print(f"Error: {response.status_code} - {response.text}")
+        #print(f"Error: {response.status_code} - {response.text}")
         return []
 
-def extract_devs(devs):
-    developers = devs[0]['users']
-    location = devs[0]['location']
+def extract_devs(devs , locat):
+    developers = devs
+    location = locat
     dev_data = []
-    for dev in developers:
-        dev_emails = []
-        username = dev["login"]
-        repos_url = f"https://api.github.com/users/{username}/repos"
-        repos_response = requests.get(repos_url, headers=HEADERS)
-        e_index=0
-        if repos_response.status_code == 200:
-            repos = repos_response.json()
-            for repo in repos:
-                owner = repo["owner"]["login"]
-                repo_name = repo["name"]
-                emails = fetch_commits(owner, repo_name)
-                for email in emails:
-                    if email not in dev_emails:
-                        dev_emails.append(email)
-                        e_index = e_index +1
-                        #print(f"Developer: {username}, Email: {email}")
-        else:
-            print(f"Failed to fetch repositories for {username}")
-        if e_index > 0:
-            print(f"Developer: {username}, Email: {e_index}")
-            dev_data.append({'location':location,'username':username ,'repos_url':repos_url , 'e_index':e_index , 'emails': dev_emails})
+    for year_developers in developers:
+        for dev in year_developers:
+            dev_emails = []
+            username = dev["login"]
+            repos_url = f"https://api.github.com/users/{username}/repos"
+            repos_response = requests.get(repos_url, headers=HEADERS)
+            e_index=0
+            if repos_response.status_code == 200:
+                repos = repos_response.json()
+                for repo in repos:
+                    owner = repo["owner"]["login"]
+                    repo_name = repo["name"]
+                    emails = fetch_commits(owner, repo_name)
+                    for email in emails:
+                        if email not in dev_emails:
+                            dev_emails.append(email)
+                            e_index = e_index +1
+                            #print(f"Developer: {username}, Email: {email}")
+            
+            if e_index > 0:
+                print(f"Developer: {username}, Email: {e_index}")
+                dev_data.append({'location':location,'username':username ,'repos_url':repos_url , 'e_index':e_index , 'emails': dev_emails})
     return dev_data
 
 # Fetch users for each year
 years = []
-for i in range(2008,2026): years.append(i)
+for i in range(2008,2010): years.append(i)
 location = "Morocco"
 results_by_year = {}
 sleep_time = 0
@@ -95,7 +95,7 @@ for year in years:
     #print(f"Fetching users created in {year}...")
     users = fetch_users_by_year(location, year)
     results_by_year[year] = users
-    developers.append({'users':users , 'location':location})
+    developers.append(users)
     print(f"Found {len(users)} users created in {year}.")
 
     if sleep_time == 3:
@@ -107,7 +107,6 @@ for year in years:
 # Output results
 for year, users in results_by_year.items():
     print(f"Year: {year}, Users Found: {len(users)}")
-
 
 devs = extract_devs(developers)
 
