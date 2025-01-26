@@ -16,22 +16,18 @@ collection = db["gethub_developers"]
 
 
 
-developers = []
-
-def fetch_users_by_year(location, year, per_page=100, max_pages=10):
+def fetch_users_by_filters(location, year, followers_range, per_page=100, max_pages=10):
+    """Fetch users by location, year, and follower range."""
     all_users = []
     for page in range(1, max_pages + 1):
-        params = {
-            "q": f"location:{location} created:{year}-01-01..{year}-12-31",
-            "per_page": per_page,
-            "page": page,
-        }
+        query = f"location:{location} created:{year}-01-01..{year}-12-31 followers:{followers_range}"
+        params = {"q": query, "per_page": per_page, "page": page}
         response = requests.get(BASE_URL, headers=HEADERS, params=params)
         if response.status_code == 200:
             data = response.json()
             users = data.get("items", [])
             all_users.extend(users)
-            if len(users) < per_page:  # If fewer results than expected, stop pagination
+            if len(users) < per_page:  # Stop pagination if fewer results than expected
                 break
         else:
             print(f"Error: {response.status_code} - {response.text}")
@@ -42,7 +38,6 @@ def fetch_commits(owner, repo):
     """Fetch commits from a repository and extract emails."""
     commits_url = f"https://api.github.com/repos/{owner}/{repo}/commits"
     response = requests.get(commits_url, headers=HEADERS)
-    
     if response.status_code == 200:
         commits = response.json()
         emails = [
@@ -51,66 +46,31 @@ def fetch_commits(owner, repo):
         ]
         return [email for email in emails if "noreply" not in email]
     else:
-        #print(f"Error: {response.status_code} - {response.text}")
         return []
 
-def extract_devs(devs , locat):
-    developers = devs
-    location = locat
+def fetch_developer_data(users, location):
+    """Extract repositories and emails for each developer."""
     dev_data = []
-    for year_developers in developers:
-        for dev in year_developers:
-            dev_emails = []
-            username = dev["login"]
-            repos_url = f"https://api.github.com/users/{username}/repos"
-            repos_response = requests.get(repos_url, headers=HEADERS)
-            e_index=0
-            if repos_response.status_code == 200:
-                repos = repos_response.json()
-                for repo in repos:
-                    owner = repo["owner"]["login"]
-                    repo_name = repo["name"]
-                    emails = fetch_commits(owner, repo_name)
-                    for email in emails:
-                        if email not in dev_emails:
-                            dev_emails.append(email)
-                            e_index = e_index +1
-                            #print(f"Developer: {username}, Email: {email}")
-            
-            if e_index > 0:
-                print(f"Developer: {username}, Email: {e_index}")
-                dev_data.append({'location':location,'username':username ,'repos_url':repos_url , 'e_index':e_index , 'emails': dev_emails})
+    for user in users:
+        dev_emails = []
+        username = user["login"]
+        repos_url = f"https://api.github.com/users/{username}/repos"
+        repos_response = requests.get(repos_url, headers=HEADERS)
+        if repos_response.status_code == 200:
+            repos = repos_response.json()
+            for repo in repos:
+                owner = repo["owner"]["login"]
+                repo_name = repo["name"]
+                emails = fetch_commits(owner, repo_name)
+                dev_emails.extend([email for email in emails if email not in dev_emails])
+        if dev_emails:
+            dev_data.append({
+                "location": location,
+                "username": username,
+                "repos_url": repos_url,
+                "emails": dev_emails,
+            })
     return dev_data
-
-# Fetch users for each year
-years = []
-for i in range(2008,2026): years.append(i)
-location = "France"
-results_by_year = {}
-sleep_time = 0
-
-for year in years:
-    sleep_time= sleep_time+1
-
-    #print(f"Fetching users created in {year}...")
-    users = fetch_users_by_year(location, year)
-    results_by_year[year] = users
-    developers.append(users)
-    print(f"Found {len(users)} users created in {year}.")
-
-    if sleep_time == 3:
-        print("Sleep Time ...")
-        time.sleep(180)
-        sleep_time = 0
-
-
-# Output results
-for year, users in results_by_year.items():
-    print(f"Year: {year}, Users Found: {len(users)}")
-
-devs = extract_devs(developers , location)
-
-
 def save_data(data):
     try:
         result = collection.insert_many(data)
@@ -118,5 +78,46 @@ def save_data(data):
     except Exception as e:
         print(f"Error saving data: {str(e)}")
         return {"error": str(e)}
+def main():
+    countries = ["France"]  # Add more countries as needed
+    years = list(range(2008, 2026))
+    followers_ranges = ["<10", "10..50", "50..100", ">100"]
 
-save_data(devs)
+    all_developers = []
+    all_emails = []
+
+    for country in countries:
+        print(f"Processing country: {country}")
+        country_users = []
+        sleep_time = 0
+        for year in years:
+            for followers_range in followers_ranges:
+                sleep_time += 1
+                print(f"Fetching users in {country}, Year: {year}, Followers: {followers_range}")
+                users = fetch_users_by_filters(country, year, followers_range)
+                country_users.extend(users)
+                if sleep_time == 3:
+                    print("Sleep Time ...")
+                    time.sleep(180)
+                    sleep_time = 0
+        print(f"Total users found in {country}: {len(country_users)}")
+        
+        dev_data = fetch_developer_data(country_users, country)
+        all_developers.extend(dev_data)
+        for dev in dev_data:
+            all_emails.extend(dev["emails"])
+
+        print(f"Emails extracted from {country}: {len(all_emails)}")
+
+        # Save intermediate results to avoid data loss
+        with open(f"{country}_developers.json", "w") as f:
+            json.dump(dev_data, f)
+
+    print(f"Total Developers: {len(all_developers)}")
+    print(f"Total Emails: {len(all_emails)}")
+
+    # Save final results
+    save_data(all_developers)
+
+if __name__ == "__main__":
+    main()
