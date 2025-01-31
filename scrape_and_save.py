@@ -89,11 +89,13 @@ def save_data(data):
 
 
 def main():
-    # Ensure the 'countries' directory exists in the current script directory
-    repo_root = os.path.dirname(os.path.abspath(__file__))  # Get the directory where the script is located
-    output_dir = os.path.join(repo_root, "countries")  # Ensure the "countries" folder is inside your repo
+    # Get the root directory of your repository
+    repo_root = os.getenv("GITHUB_WORKSPACE", os.getcwd())  # Ensure it works locally & in GitHub Actions
+    output_dir = os.path.join(repo_root, "countries")  # Store data inside your repo
+    
+    # Create the "countries" directory
     os.makedirs(output_dir, exist_ok=True)
-
+    
     
     countries = ["France"]  # Add more countries as needed
     years = list(range(2025, 2026))
