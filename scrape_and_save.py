@@ -89,6 +89,10 @@ def save_data(data):
 
 
 def main():
+    # Ensure directory exists before writing files
+    output_dir = "../countries"
+    os.makedirs(output_dir, exist_ok=True)
+    
     countries = ["France"]  # Add more countries as needed
     years = list(range(2025, 2026))
     followers_ranges = ["<10", "10..50", "50..100", ">100"]
@@ -120,9 +124,10 @@ def main():
                 all_emails.extend(dev["emails"])
 
             print(f"Total developers found in {country}, Year: {year}: {len(year_developers)}")
-
+            
             # Save results for the year in a JSON file
-            with open(f"{country}_developers_{year}.json", "w") as f:
+            json_filename = os.path.join(output_dir, f"{country}_developers_{year}.json")
+            with open(json_filename, "w") as f:
                 json.dump(year_developers, f, indent=4)
         
         print(f"Total users found in {country}: {len(country_users)}")
