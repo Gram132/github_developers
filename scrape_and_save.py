@@ -90,8 +90,10 @@ def save_data(data):
 
 def main():
     # Ensure the 'countries' directory exists in the current script directory
-    output_dir = os.path.join(os.getcwd(), "countries")
+    repo_root = os.path.dirname(os.path.abspath(__file__))  # Get the directory where the script is located
+    output_dir = os.path.join(repo_root, "countries")  # Ensure the "countries" folder is inside your repo
     os.makedirs(output_dir, exist_ok=True)
+
     
     countries = ["France"]  # Add more countries as needed
     years = list(range(2025, 2026))
