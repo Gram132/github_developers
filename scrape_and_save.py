@@ -89,8 +89,8 @@ def save_data(data):
 
 
 def main():
-    # Ensure directory exists before writing files
-    output_dir = "../countries"
+    # Ensure the 'countries' directory exists in the current script directory
+    output_dir = os.path.join(os.getcwd(), "countries")
     os.makedirs(output_dir, exist_ok=True)
     
     countries = ["France"]  # Add more countries as needed
@@ -125,10 +125,19 @@ def main():
 
             print(f"Total developers found in {country}, Year: {year}: {len(year_developers)}")
             
+            # Ensure the country folder exists inside 'countries'
+            country_folder = os.path.join(output_dir, country)
+            os.makedirs(country_folder, exist_ok=True)
+            
+            # Define the JSON file path inside the country folder
+            json_filename = os.path.join(country_folder, f"{country}_developers_{year}.json")
+            
             # Save results for the year in a JSON file
-            json_filename = os.path.join(output_dir, f"{country}_developers_{year}.json")
             with open(json_filename, "w") as f:
                 json.dump(year_developers, f, indent=4)
+            
+            print(f"Saved data for {country}, Year {year} in: {json_filename}")
+
         
         print(f"Total users found in {country}: {len(country_users)}")
         print(f"Emails extracted from {country}: {len(all_emails)}")
