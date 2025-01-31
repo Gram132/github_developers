@@ -98,7 +98,7 @@ def main():
     
     
     countries = ["France"]  # Add more countries as needed
-    years = list(range(2025, 2026))
+    years = list(range(2024, 2026))
     followers_ranges = ["<10", "10..50", "50..100", ">100"]
 
     all_developers = []
@@ -129,18 +129,10 @@ def main():
 
             print(f"Total developers found in {country}, Year: {year}: {len(year_developers)}")
             
-            # Ensure the country folder exists inside 'countries'
-            country_folder = os.path.join(output_dir, country)
-            os.makedirs(country_folder, exist_ok=True)
+            # Save all developers to MongoDB
+            save_data(year_developers)
             
-            # Define the JSON file path inside the country folder
-            json_filename = os.path.join(country_folder, f"{country}_developers_{year}.json")
-            
-            # Save results for the year in a JSON file
-            with open(json_filename, "w") as f:
-                json.dump(year_developers, f, indent=4)
-            
-            print(f"Saved data for {country}, Year {year} in: {json_filename}")
+            print(f"Saved data for {country}, Year {year}")
 
         
         print(f"Total users found in {country}: {len(country_users)}")
@@ -149,8 +141,7 @@ def main():
     print(f"Total Developers: {len(all_developers)}")
     print(f"Total Emails: {len(all_emails)}")
 
-    # Save all developers to MongoDB
-    save_data(all_developers)
+    
 
 
 if __name__ == "__main__":
