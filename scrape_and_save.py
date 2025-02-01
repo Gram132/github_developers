@@ -98,7 +98,7 @@ def main():
     
     
     countries = ["France"]  # Add more countries as needed
-    years = list(range(2022, 2023))
+    years = list(range(2025, 2026))
     followers_ranges = ["<10", "10..50", "50..100", ">100"]
 
     all_developers = []
