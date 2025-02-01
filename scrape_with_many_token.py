@@ -152,7 +152,7 @@ def main():
     os.makedirs(output_dir, exist_ok=True)
     
     countries = ["France"]  # Add more countries
-    years = list(range(2022, 2023))
+    years = list(range(2022, 2026))
     followers_ranges = ["<10", "10..50", "50..100", ">100"]
 
     all_developers = []
@@ -165,7 +165,7 @@ def main():
 
         for year in years:
             year_developers = []
-            
+
             for followers_range in followers_ranges:
                 sleep_time += 1
                 print(f"🔍 Fetching users in {country}, Year: {year}, Followers: {followers_range}")
