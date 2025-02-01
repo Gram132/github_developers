@@ -1,0 +1,38 @@
+name: Extract with Many Tokens
+
+on:
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run script
+      run: python scrape_with_many_token.py
+      env:
+        MONGO_URL: ${{ secrets.MONGO_URI }}
+        GETHUB_TOKEN_1: ${{ secrets.GETHUB_TOKEN_1 }}
+        GETHUB_TOKEN_2: ${{ secrets.GETHUB_TOKEN_2 }}
+        GETHUB_TOKEN_3: ${{ secrets.GETHUB_TOKEN_3 }}
+        GETHUB_TOKEN_4: ${{ secrets.GETHUB_TOKEN_4 }}
+        GETHUB_TOKEN_5: ${{ secrets.GETHUB_TOKEN_5 }}
+        GETHUB_TOKEN_6: ${{ secrets.GETHUB_TOKEN_6 }}
+        GETHUB_TOKEN_7: ${{ secrets.GETHUB_TOKEN_7 }}
+        GETHUB_TOKEN_8: ${{ secrets.GETHUB_TOKEN_8 }}
+        GETHUB_TOKEN_9: ${{ secrets.GETHUB_TOKEN_9 }}
+        GETHUB_TOKEN_10: ${{ secrets.GETHUB_TOKEN_10 }}
+        GETHUB_TOKEN: ${{ secrets.GETHUB_TOKEN }}

@@ -115,6 +115,7 @@ def main():
                 print(f"Fetching users in {country}, Year: {year}, Followers: {followers_range}")
                 users = fetch_users_by_filters(country, year, followers_range)
                 country_users.extend(users)
+                print(f"Total users in {country}, Year: {year}, Followers: {followers_range} is {len(users)}")
                 if sleep_time == 3:
                     print("Sleep Time ...")
                     time.sleep(180)
