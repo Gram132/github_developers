@@ -165,8 +165,7 @@ def main():
 
         for year in years:
             year_developers = []
-            switch_token()
-            time.sleep(10)
+            
             for followers_range in followers_ranges:
                 sleep_time += 1
                 print(f"🔍 Fetching users in {country}, Year: {year}, Followers: {followers_range}")
