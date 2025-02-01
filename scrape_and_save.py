@@ -131,7 +131,7 @@ def main():
             print(f"Total developers found in {country}, Year: {year}: {len(year_developers)}")
             
             # Save all developers to MongoDB
-            save_data(year_developers)
+            #save_data(year_developers)
             
             print(f"Saved data for {country}, Year {year}")
 
