@@ -28,9 +28,10 @@ def get_headers():
 
 def switch_token():
     """Switches to the next token in the list when rate limits are hit."""
-    global TOKEN_INDEX
-    TOKEN_INDEX = (TOKEN_INDEX + 1) % len(GITHUB_TOKENS)  # Rotate tokens
-    print(f"⚠️ Switching to GitHub Token {TOKEN_INDEX + 1}")
+    time.sleep(30)
+    #global TOKEN_INDEX
+    #TOKEN_INDEX = (TOKEN_INDEX + 1) % len(GITHUB_TOKENS)  # Rotate tokens
+    #print(f"⚠️ Switching to GitHub Token {TOKEN_INDEX + 1}")
 
 # MongoDB Connection
 MONGO_URL = os.getenv("MONGO_URL")
