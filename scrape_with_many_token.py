@@ -28,10 +28,10 @@ def get_headers():
 
 def switch_token():
     """Switches to the next token in the list when rate limits are hit."""
-    time.sleep(30)
-    #global TOKEN_INDEX
-    #TOKEN_INDEX = (TOKEN_INDEX + 1) % len(GITHUB_TOKENS)  # Rotate tokens
-    #print(f"⚠️ Switching to GitHub Token {TOKEN_INDEX + 1}")
+    
+    global TOKEN_INDEX
+    TOKEN_INDEX = (TOKEN_INDEX + 1) % len(GITHUB_TOKENS)  # Rotate tokens
+    print(f"⚠️ Switching to GitHub Token {TOKEN_INDEX + 1}")
 
 # MongoDB Connection
 MONGO_URL = os.getenv("MONGO_URL")
@@ -96,7 +96,7 @@ def fetch_commits(owner, repo):
             return []
 
 
-def fetch_developer_data(users, location):
+def fetch_developer_data(users, location , Year):
     """Extract repositories and emails for each developer."""
     dev_data = []
     
@@ -128,6 +128,7 @@ def fetch_developer_data(users, location):
         if dev_emails:
             dev_data.append({
                 "location": location,
+                "Year":Year ,
                 "username": username,
                 "repos_url": repos_url,
                 "emails": dev_emails,
@@ -180,7 +181,7 @@ def main():
                     sleep_time = 0
             
             # Fetch repositories and emails
-            dev_data = fetch_developer_data(country_users, country)
+            dev_data = fetch_developer_data(country_users, country,year)
             year_developers.extend(dev_data)
             all_developers.extend(dev_data)
             for dev in dev_data:
