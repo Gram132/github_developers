@@ -62,7 +62,7 @@ def fetch_users_by_filters(location, year, followers_range, per_page=100, max_pa
             elif response.status_code == 403 or response.status_code == 401:  # Rate limit exceeded
                 print("⚠️ Rate limit exceeded! Switching tokens...")
                 switch_token()
-                time.sleep(100)  # Wait a bit before retrying
+                time.sleep(180)  # Wait a bit before retrying
             
             else:
                 print(f"❌ Error: {response.status_code} - {response.text}")
