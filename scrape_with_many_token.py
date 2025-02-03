@@ -154,7 +154,7 @@ def main():
     os.makedirs(output_dir, exist_ok=True)
     
     countries = ["France"]  # Add more countries
-    years = list(range(2016, 2020))
+    years = list(range(2012, 2016))
     followers_ranges = ["<10", "10..50", "50..100", ">100"]
 
     all_developers = []
