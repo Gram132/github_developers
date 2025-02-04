@@ -4,12 +4,14 @@ import time
 import json
 from pymongo import MongoClient
 
-# Use only one GitHub token
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+# Environment variables
+gitHub_token = os.getenv("GETHUB_TOKEN")
+mongodb_url = os.getenv("MONGO_URL")
 
-def get_headers():
-    """Returns the authorization headers with the single GitHub token."""
-    return {"Authorization": f"token {GITHUB_TOKEN}"}
+# GitHub API configurations
+TOKEN = gitHub_token
+HEADERS = {"Authorization": f"token {TOKEN}"}
+BASE_URL = "https://api.github.com/search/users"
 
 # MongoDB Connection
 MONGO_URL = os.getenv("MONGO_URL")
@@ -27,7 +29,7 @@ def fetch_users_by_filters(location, year, followers_range, per_page=100, max_pa
         query = f"location:{location} created:{year}-01-01..{year}-12-31 followers:{followers_range}"
         params = {"q": query, "per_page": per_page, "page": page}
         
-        response = requests.get(BASE_URL, headers=get_headers(), params=params)
+        response = requests.get(BASE_URL, headers=HEADERS, params=params)
         
         if response.status_code == 200:
             data = response.json()
