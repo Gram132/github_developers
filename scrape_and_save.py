@@ -98,8 +98,8 @@ def save_data(data):
         return {"error": str(e)}
 
 def main():
-    countries = ["France"]
-    years = list(range(2012, 2013))
+    countries = ["Nederlands"]
+    years = list(range(2024, 2026))
     followers_ranges = ["<10", "10..50", "50..100", ">100"]
     
     all_developers = []
