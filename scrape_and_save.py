@@ -46,7 +46,7 @@ def fetch_users_by_filters(location, year, followers_range, per_page=100, max_pa
 def fetch_commits(owner, repo):
     """Fetch commits from a repository and extract emails."""
     commits_url = f"https://api.github.com/repos/{owner}/{repo}/commits"
-    response = requests.get(commits_url, headers=get_headers())
+    response = requests.get(commits_url, headers=HEADERS)
     
     if response.status_code == 200:
         commits = response.json()
@@ -67,7 +67,7 @@ def fetch_developer_data(users, location, year):
         username = user["login"]
         repos_url = f"https://api.github.com/users/{username}/repos"
         
-        repos_response = requests.get(repos_url, headers=get_headers())
+        repos_response = requests.get(repos_url, headers=HEADERS)
         
         if repos_response.status_code == 200:
             repos = repos_response.json()
