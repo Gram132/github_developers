@@ -1,7 +1,6 @@
 import os
 import requests
 import time
-import json
 from pymongo import MongoClient
 
 # Environment variables
