@@ -100,7 +100,7 @@ def save_data(data):
         return {"error": str(e)}
 
 def main():
-    countries = ["Sweden"]
+    countries = ["Norway"]
     years = list(range(2008, 2012))
     followers_ranges = ["<10", "10..50", "50..100", ">100"]
     
