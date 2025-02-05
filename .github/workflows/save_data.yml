@@ -1,8 +1,8 @@
-name: Extract Emails
+name: save data
 
 on:
   schedule:
-    - cron: '25 6 * * *'
+    - cron: '35 6 * * *'
 
 jobs:
   scrape:
