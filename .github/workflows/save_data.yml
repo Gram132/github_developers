@@ -2,7 +2,7 @@ name: save data
 
 on:
   schedule:
-    - cron: '50 18 * * *'
+    - cron: '56 18 * * *'
 
 jobs:
   scrape:
@@ -23,7 +23,7 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run script
-      run: python scrap_gethub.py
+      run: python scrape_and_save.py
       env:
         MONGO_URL: ${{ secrets.MONGO_URI }}
         GETHUB_TOKEN: ${{ secrets.GETHUB_TOKEN }}
