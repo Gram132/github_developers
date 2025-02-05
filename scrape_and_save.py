@@ -101,7 +101,7 @@ def save_data(data):
 
 def main():
     countries = ["Norway"]
-    years = list(range(2008, 2012))
+    years = list(range(2012, 2016))
     followers_ranges = ["<10", "10..50", "50..100", ">100"]
     
     all_developers = []
