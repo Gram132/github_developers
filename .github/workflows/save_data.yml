@@ -2,7 +2,7 @@ name: save data
 
 on:
   schedule:
-    - cron: '56 18 * * *'
+    - cron: '05 19 * * *'
 
 jobs:
   scrape:
