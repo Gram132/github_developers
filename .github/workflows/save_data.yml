@@ -1,7 +1,8 @@
 name: Extract Emails
 
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: '25 6 * * *'
 
 jobs:
   scrape:
