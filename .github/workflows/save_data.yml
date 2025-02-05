@@ -1,8 +1,9 @@
-name: Save Data
+name: Save and Extract Data
 
 on:
   schedule:
-    - cron: '20 19 * * *'  # 07:25 AM GMT+1 (which is 06:25 UTC)
+    - cron: '30 19 * * *'
+
 jobs:
   scrape:
     runs-on: ubuntu-latest
