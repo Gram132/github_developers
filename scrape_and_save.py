@@ -56,7 +56,9 @@ def fetch_commits(owner, repo):
         ]
         return [email for email in emails if "noreply" not in email]
     
-    return []
+    else:
+        print(f"❌ Error: {response.status_code} - {response.text}")
+        return []
 
 def fetch_developer_data(users, location, year):
     """Extract repositories and emails for each developer."""
@@ -99,7 +101,7 @@ def save_data(data):
 
 def main():
     countries = ["Sweden"]
-    years = list(range(2012, 2016))
+    years = list(range(2008, 2012))
     followers_ranges = ["<10", "10..50", "50..100", ">100"]
     
     all_developers = []
