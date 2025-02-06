@@ -2,7 +2,7 @@ name: Save and Extract Data 06
 
 on:
   schedule:
-    - cron: '30 12 * * *'  # 19:30 UTC (which is 20:30 GMT+1)
+    - cron: '25 14 * * *'  # 19:30 UTC (which is 20:30 GMT+1)
 
 jobs:
   scrape:
@@ -26,4 +26,4 @@ jobs:
       run: python scrape_and_save_06.py
       env:
         MONGO_URL: ${{ secrets.MONGO_URI }}
-        GITHUB_TOKEN: ${{ secrets.GETHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GETHUB_TOKEN_2 }}
