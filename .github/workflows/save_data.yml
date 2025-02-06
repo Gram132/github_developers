@@ -1,4 +1,4 @@
-name: Save and Extract Data
+name: Save & Extract Data
 
 on:
   schedule:
