@@ -1,1 +1,1 @@
-LOCATION = "Norway"  # Change once, use everywhere
+LOCATION = "Denmark"  # Change once, use everywhere

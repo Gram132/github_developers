@@ -2,7 +2,7 @@ name: Save and Extract Data
 
 on:
   schedule:
-    - cron: '30 19 * * *'  # 19:30 UTC (which is 20:30 GMT+1)
+    - cron: '30 6 * * *'  # 19:30 UTC (which is 20:30 GMT+1)
 
 jobs:
   scrape:
@@ -23,7 +23,7 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run script
-      run: python scrape_and_save.py
+      run: python scrape_and_save_03.py
       env:
         MONGO_URL: ${{ secrets.MONGO_URI }}
         GITHUB_TOKEN: ${{ secrets.GETHUB_TOKEN }}
