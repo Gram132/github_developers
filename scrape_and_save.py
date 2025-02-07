@@ -84,8 +84,8 @@ def save_data(data):
         return {"error": str(e)}
 def main():
     countries = ["Taiwan","Netherlands"]  # Add more countries as needed
-    years = list(range(2008, 2016))
-    followers_ranges = ["<10", "10..50", "50..100", ">100"]
+    years = list(range(2016, 2026))
+    followers_ranges = ["<10", "10..50"]
 
     all_developers = []
     all_emails = []
