@@ -83,7 +83,7 @@ def save_data(data):
         print(f"Error saving data: {str(e)}")
         return {"error": str(e)}
 def main():
-    countries = ["Korea","Japan"]  # Add more countries as needed
+    countries = ["Malaysia","Thailand"]  # Add more countries as needed
     years = list(range(2008, 2016))
     followers_ranges = ["<10", "10..50"]
 
