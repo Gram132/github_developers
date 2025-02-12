@@ -84,7 +84,7 @@ def save_data(data):
         return {"error": str(e)}
 def main():
     countries = ["Mexico", "Argentina", "Chile", "Puerto Rico", "Peru", "Colombia", "Belize", "Costa Rica", "Dominican Republic", "El Salvador", "Guatemala", "Honduras", "Nicaragua", "Panama", "Bolivia", "Ecuador", "Paraguay", "Uruguay", "Venezuela"]  # Add more countries as needed
-    years = list(range(2012, 2016))
+    years = list(range(2014, 2016))
     followers_ranges = ["<10", "10..50"]
 
     all_developers = []
