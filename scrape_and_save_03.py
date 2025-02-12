@@ -2,7 +2,6 @@ import os
 import requests
 import time
 from pymongo import MongoClient
-from config import LOCATION
 
 # Environment variables
 gitHub_token = os.getenv("GETHUB_TOKEN")
@@ -84,9 +83,9 @@ def save_data(data):
         print(f"Error saving data: {str(e)}")
         return {"error": str(e)}
 def main():
-    countries = [LOCATION]  # Add more countries as needed
-    years = list(range(2014, 2017))
-    followers_ranges = ["<10", "10..50", "50..100", ">100"]
+    countries = ["Venezuela"]  # Add more countries as needed
+    years = list(range(2014, 2015))
+    followers_ranges = ["<10", "10..50"]
 
     all_developers = []
     all_emails = []

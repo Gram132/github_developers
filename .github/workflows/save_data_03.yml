@@ -2,7 +2,7 @@ name: Save and Extract Data 03
 
 on:
   schedule:
-    - cron: '30 6 * * *'  # 19:30 UTC (which is 20:30 GMT+1)
+    - cron: '10 3 * * *'  # 19:30 UTC (which is 20:30 GMT+1)
 
 jobs:
   scrape:
