@@ -1,4 +1,4 @@
-name: Extract and Save Emails Data
+name: Extract Emails
 
 on:
   workflow_dispatch:
