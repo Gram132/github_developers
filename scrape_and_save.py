@@ -52,7 +52,7 @@ def fetch_commits(owner, repo):
     else:
         return []
 
-def fetch_developer_data(users, location):
+def fetch_developer_data(users, location,year):
     """Extract repositories and emails for each developer."""
     dev_data = []
     for user in users:
@@ -69,6 +69,7 @@ def fetch_developer_data(users, location):
                 dev_emails.extend([email for email in emails if email not in dev_emails])
         if dev_emails:
             dev_data.append({
+                "year":year,
                 "location": location,
                 "username": username,
                 "repos_url": repos_url,
@@ -85,7 +86,7 @@ def save_data(data):
 def main():
     #countries = ["Mexico", "Argentina", "Chile", "Puerto Rico", "Peru", "Colombia", "Belize", "Costa Rica", "Dominican Republic", "El Salvador", "Guatemala", "Honduras", "Nicaragua", "Panama", "Bolivia", "Ecuador", "Paraguay", "Uruguay", "Venezuela"]  # Add more countries as needed
     countries = ["Nederlands", "Sweden", "Danmark", "Norway", "Korea", "Japan","Thailand","Malaysia","Brazil","Taiwan","China"]
-    years = list(range(2019, 2021))
+    years = list(range(2025, 2026))
     followers_ranges = ["<10", "10..50"]
 
     all_developers = []
@@ -99,7 +100,7 @@ def main():
             for followers_range in followers_ranges:
                 sleep_time += 1
                 print(f"Fetching users in {country}, Year: {year}, Followers: {followers_range}")
-                users = fetch_users_by_filters(country, year, followers_range)
+                users = fetch_users_by_filters(country, year, followers_range )
                 country_users.extend(users)
                 if sleep_time == 3:
                     print("Sleep Time ...")
@@ -107,7 +108,7 @@ def main():
                     sleep_time = 0
         print(f"Total users found in {country}: {len(country_users)}")
         
-        dev_data = fetch_developer_data(country_users, country)
+        dev_data = fetch_developer_data(country_users, country, year)
         all_developers.extend(dev_data)
         for dev in dev_data:
             all_emails.extend(dev["emails"])
